@@ -22,9 +22,9 @@ impl Database {
     fn list_all(&self) {
         println!("Listing the whole company:");
         for department in self.departments.iter() {
-            println!("\tDepartment: {}", department.0);
+            println!("Department: {}", department.0);
             for employee in department.1 {
-                println!("\t\t{}", employee);
+                println!("\t{}", employee);
             }
             print!("\n");
         }
@@ -73,12 +73,13 @@ fn main() {
 }
 
 fn print_help() {
-    println!("Commands available:");
-    println!("\tadd <Employee> to <Department>");
-    println!("\thelp");
-    println!("\tlistall");
-    println!("\tlist <Department>");
-    println!("\tquit");
+    println!("The commands are:\n");
+    println!("\tadd <Employee> to <Department>\tadds employee to department");
+    println!("\thelp\t\t\t\tdisplays this help");
+    println!("\tlistall\t\t\t\tlist all departments and employees");
+    println!("\tlist <Department>\t\tlists all employees in a department");
+    println!("\tquit\t\t\t\tfinishes the program");
+    println!("");
 }
 
 fn get_command(command_string: &String) -> Option<Commands> {

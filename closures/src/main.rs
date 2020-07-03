@@ -1,10 +1,9 @@
 use std::collections::HashMap;
-use std::fmt::Display;
 use std::hash::Hash;
 use std::thread;
 use std::time::Duration;
 
-struct Cacher<T, U: Display + Eq + Hash, V: Display + Eq + Hash + Copy>
+struct Cacher<T, U, V>
 where
     T: Fn(U) -> V,
 {
@@ -12,7 +11,7 @@ where
     map: HashMap<U, V>,
 }
 
-impl<T, U: Display + Eq + Hash + Copy, V: Display + Eq + Hash + Copy> Cacher<T, U, V>
+impl<T, U: Eq + Hash + Copy, V: Copy> Cacher<T, U, V>
 where
     T: Fn(U) -> V,
 {
@@ -69,9 +68,11 @@ fn call_with_different_values_int() {
 
     let v1 = c.value(1);
     let v2 = c.value(2);
+    let v2_2 = c.value(2);
     let v3 = c.value(3);
 
     assert_eq!(v1, 1);
+    assert_eq!(v2, v2_2);
     assert_eq!(v2, 2);
     assert_eq!(v3, 3);
 }
